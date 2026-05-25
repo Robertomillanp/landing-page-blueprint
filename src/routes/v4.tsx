@@ -273,11 +273,77 @@ function FooterV4() {
   );
 }
 
+const collections = [
+  { title: "RETRO", sub: "Revive la historia", img: jArg },
+  { title: "2022", sub: "Camisetas Mundial", img: jBra },
+  { title: "GANADORAS", sub: "De campeones", img: insta2 },
+  { title: "SELECCIONES", sub: "Equipos icónicos", img: jFra },
+  { title: "ESPECIALES", sub: "Ediciones limitadas", img: drop },
+  { title: "VINTAGE 90s", sub: "La década dorada", img: insta1 },
+];
+
+function CollectionsCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start", dragFree: true });
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setCanPrev(emblaApi.canScrollPrev());
+      setCanNext(emblaApi.canScrollNext());
+    };
+    onSelect();
+    emblaApi.on("select", onSelect).on("reInit", onSelect);
+  }, [emblaApi]);
+
+  return (
+    <section id="colecciones" className="py-20 border-t border-border">
+      <div className="container-wk">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <div className="eyebrow mb-2">Colecciones</div>
+            <h2 className="font-display uppercase text-4xl md:text-5xl">Descubre nuestras colecciones</h2>
+            <div className="mt-3 h-[3px] w-12 bg-gold" />
+          </div>
+          <div className="hidden md:flex gap-2">
+            <button onClick={scrollPrev} disabled={!canPrev} className="h-10 w-10 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition disabled:opacity-30">
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button onClick={scrollNext} disabled={!canNext} className="h-10 w-10 rounded-full border border-border flex items-center justify-center hover:border-gold hover:text-gold transition disabled:opacity-30">
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="overflow-hidden pl-5 md:pl-[max(1.25rem,calc((100vw-1240px)/2+1.25rem))]" ref={emblaRef}>
+        <div className="flex gap-5">
+          {collections.map((c) => (
+            <a key={c.title} href="#" className="group relative shrink-0 w-[78%] sm:w-[44%] md:w-[32%] lg:w-[24%] aspect-[4/5] rounded-xl overflow-hidden border border-border block">
+              <img src={c.img} alt={c.title} className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <h3 className="font-display text-3xl uppercase">{c.title}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{c.sub}</p>
+                <span className="mt-4 inline-block text-[10px] tracking-[0.2em] uppercase border border-border bg-secondary/60 backdrop-blur px-4 py-2 rounded group-hover:border-gold group-hover:text-gold transition">
+                  Ver colección
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function V4Page() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <HeroV4 />
       <Bestsellers />
+      <CollectionsCarousel />
       <Pillars />
       <DropBanner />
       <Reviews />
