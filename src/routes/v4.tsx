@@ -59,10 +59,10 @@ function HeaderV4() {
 
 function HeroV4() {
   return (
-    <section className="relative min-h-[720px] overflow-hidden">
+    <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[720px] overflow-hidden">
       <img src={hero} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
       <HeaderV4 />
       <div className="container-wk relative z-10 pt-44 pb-24 max-w-3xl">
         <div className="eyebrow mb-5">Más que camisetas</div>
