@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search, User, ShoppingBag, ArrowRight, Plus, Shield, Gem, Globe2, Star } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { Search, User, ShoppingBag, ArrowRight, Plus, Shield, Gem, Globe2, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import hero from "@/assets/hero-players.jpg";
 import jArg from "@/assets/jersey-argentina.jpg";
 import jBra from "@/assets/jersey-brazil.jpg";
